@@ -10,6 +10,8 @@
 
 > First-launch note: the EXE is unsigned (we have applied for free open-source code signing through the [SignPath Foundation](https://signpath.org/) — once accepted, future releases will be signed by SignPath Foundation's certificate at no cost). SmartScreen will say "Windows protected your PC." Click **More info → Run anyway**. One-time click per machine.
 
+> **This fork only provides the portable EXE** (no installer build) — just download and run, nothing to uninstall later either.
+>
 > **If your antivirus calls it `Trojan:Win32/Wacatac` or similar:** this is a known false positive that hits every unsigned Electron app (Discord, VS Code, Notion all had it before they signed their builds). The `!ml` suffix on the detection name means it came from Windows Defender's machine-learning heuristic, not a real signature match. This build isn't code-signed, so Defender may flag it on first run — Defender → **Virus & threat protection** → **Protection history** → restore + allow.
 
 ## Changes in this fork
