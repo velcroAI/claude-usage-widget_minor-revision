@@ -86,20 +86,12 @@ You need [Claude Code](https://claude.com/claude-code) installed and logged in e
 2. Double-click it. SmartScreen → **More info → Run anyway**.
 3. Right-click the tray icon for options, or click the cog inside the widget for the full settings panel.
 
-### Linux — download the AppImage (tester build)
+### macOS or Linux — build from source
 
-1. Download the latest **`ClaudeUsageWidget-X.Y.Z-x86_64.AppImage`** from [Releases](../../releases/latest).
-2. `chmod +x ClaudeUsageWidget-*.AppImage` then double-click it (or run it from a terminal).
-3. Right-click the tray icon for options, or click the cog inside the widget for the full settings panel.
-
-Linux is a **first tester build** — everything should work but a couple of Windows-flavored strings still leak through (e.g. the "Start with Windows" toggle label). Report issues on the tracker.
-
-### macOS, or anyone who'd rather build from source
-
-You already have the perfect tool to set this up: your own Claude Code. Paste the prompt below into a Claude Code session and let it handle the install. Works on macOS (Apple Silicon and Intel), Linux, and Windows.
+This fork only ships a prebuilt Windows portable EXE. For macOS or Linux, build it yourself — you already have the perfect tool to set this up: your own Claude Code. Paste the prompt below into a Claude Code session and let it handle the install. Works on macOS (Apple Silicon and Intel), Linux, and Windows.
 
 ````
-Set up the Claude Usage Widget from https://github.com/projectvelox/claude-usage-widget on this machine.
+Set up the Claude Usage Widget from https://github.com/velcroAI/claude-usage-widget_minor-revision on this machine.
 
 1. Clone the repo into ~/Applications/claude-usage-widget (create the parent
    directory if needed; on Linux feel free to use ~/.local/share instead).
@@ -127,26 +119,18 @@ To make it auto-launch with your OS: open the widget, click the settings cog →
 ### For developers
 
 ```powershell
-git clone https://github.com/projectvelox/claude-usage-widget
-cd claude-usage-widget
+git clone https://github.com/velcroAI/claude-usage-widget_minor-revision
+cd claude-usage-widget_minor-revision
 npm install
 npm start
 ```
 
-**Branch model.** `main` is the production branch — every tag-push there cuts a public release. `dev` is the working branch where day-to-day commits land. Pushing to `dev` runs the full test suite and, if green, opens (or updates) a single "Promote dev → main" PR. Merging that PR is the only path code takes into production.
+This fork doesn't run the original CI pipeline (GitHub Actions is disabled by default on forks unless you turn it on in **Settings → Actions**, and none of the signing/auto-publish setup carries over). In practice, releases here are just: build locally, then attach the file to a [Release](../../releases) by hand.
 
 ```powershell
-git checkout dev                       # work here
-# edit, commit
-git push origin dev                    # CI runs tests, opens promote PR if green
-
-# when you're ready to release:
-gh pr merge <PR#> --merge              # promote dev → main
-git checkout main; git pull
-npm version patch                      # bumps + tests + tags + pushes; CI builds + publishes
+npm run build             # portable EXE in dist/
+# then create a GitHub Release and drag the .exe from dist/ into it
 ```
-
-`npm version` runs `npm test` before bumping (preversion hook) and `git push --follow-tags` after (postversion hook), so a single command takes you from "I have a fix on main" to "release is live."
 
 ```powershell
 npm test                 # parser snapshot tests + updater semver tests + display geometry tests
