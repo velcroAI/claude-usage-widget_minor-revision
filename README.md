@@ -1,5 +1,7 @@
 # Claude Usage Widget
 
+Maintained by [@velcroAI](https://github.com/velcroAI) and Claude.
+
 <p align="center">
   <img src="assets/demo.gif" width="340" alt="Demo: the widget responding to a usage tick. The Current session bar slides up from 42% to 91%, the dot turns red and pulses, and a desktop notification fires at the critical threshold." />
 </p>
@@ -17,6 +19,8 @@
 ## Changes in this fork
 
 - Hides the internal `nimbus_quill` placeholder key from the widget display
+
+- Built with [Claude](https://claude.com) (Anthropic).
 
 ## What it shows
 
