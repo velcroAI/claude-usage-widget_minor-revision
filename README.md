@@ -21,6 +21,10 @@
 >
 > Every signature-based engine on VirusTotal — including Microsoft's own — comes back clean. The Wacatac flag on real Windows machines comes entirely from Defender's cloud-delivered ML model (the `!ml` suffix), which doesn't run on VirusTotal's static scans. To work around it on your machine: Defender → **Virus & threat protection** → **Protection history** → restore + allow. Permanent fix (code signing via SignPath Foundation) is in flight — once it lands, this section goes away.
 
+## Changes in this fork
+
+- Hides the internal `nimbus_quill` placeholder key from the widget display
+
 ## What it shows
 
 The same bars as **Settings → Usage** on claude.ai, plus things they don't:
