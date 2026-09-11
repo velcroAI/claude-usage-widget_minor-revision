@@ -141,11 +141,21 @@ function normalize(raw, meta = {}) {
   const seenFingerprint = new Set();
   const candidates = [];
 
+  // Internal/experimental server-side buckets that show up alongside real
+  // usage data but carry no meaningful signal for the user — e.g.
+  // `nimbus_quill` arrives as {"utilization": 0.0, "resets_at": null, ...},
+  // which is indistinguishable in shape from a real limit, but it's a
+  // placeholder/rollout flag rather than an actual quota. Denylisted
+  // explicitly (rather than filtering all zero/no-reset entries) so a
+  // genuine new limit that happens to start at 0% still shows up.
+  const HIDDEN_TOP_LEVEL_KEYS = new Set(['nimbus_quill']);
+
   if (raw && typeof raw === 'object') {
     for (const [key, value] of Object.entries(raw)) {
       // Skip arrays in the top-level scan — they're handled by the wrapper
       // loop below so their items get unwrapped instead of treated as one row.
       if (Array.isArray(value)) continue;
+      if (HIDDEN_TOP_LEVEL_KEYS.has(key)) continue;
       if (value && typeof value === 'object' && ('utilization' in value || 'percent' in value || 'usage' in value)) {
         candidates.push([key, value]);
       }
