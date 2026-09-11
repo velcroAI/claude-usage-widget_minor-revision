@@ -10,16 +10,7 @@
 
 > First-launch note: the EXE is unsigned (we have applied for free open-source code signing through the [SignPath Foundation](https://signpath.org/) — once accepted, future releases will be signed by SignPath Foundation's certificate at no cost). SmartScreen will say "Windows protected your PC." Click **More info → Run anyway**. One-time click per machine.
 
-> **If your antivirus calls it `Trojan:Win32/Wacatac` or similar:** this is a known false positive that hits every unsigned Electron app (Discord, VS Code, Notion all had it before they signed their builds). The `!ml` suffix on the detection name means it came from Windows Defender's machine-learning heuristic, not a real signature match. To verify the file you have is identical to what I published:
-> ```powershell
-> Get-FileHash -Algorithm SHA256 .\ClaudeUsageWidget-*.exe
-> ```
-> and compare against `SHA256SUMS.txt` on the [release page](../../releases/latest). If the hash matches you have the canonical build. The v0.2.17 release binary has already been independently scanned:
->
-> - **Portable EXE** (`ClaudeUsageWidget-0.2.17-portable.exe`): [0 / 64 engines detected as malicious](https://www.virustotal.com/gui/file/27fa0046cef6ba50ee670116a067069aaba1513480de4f6fc1b50201b0c3d36f)
-> - **Installer EXE** (`ClaudeUsageWidget-0.2.17-setup.exe`): [0 / 68 engines detected as malicious](https://www.virustotal.com/gui/file/de62ec183f7451db66c0f084591e136984b39d19dfabb278113cfba46b1836c3)
->
-> Every signature-based engine on VirusTotal — including Microsoft's own — comes back clean. The Wacatac flag on real Windows machines comes entirely from Defender's cloud-delivered ML model (the `!ml` suffix), which doesn't run on VirusTotal's static scans. To work around it on your machine: Defender → **Virus & threat protection** → **Protection history** → restore + allow. Permanent fix (code signing via SignPath Foundation) is in flight — once it lands, this section goes away.
+> **If your antivirus calls it `Trojan:Win32/Wacatac` or similar:** this is a known false positive that hits every unsigned Electron app (Discord, VS Code, Notion all had it before they signed their builds). The `!ml` suffix on the detection name means it came from Windows Defender's machine-learning heuristic, not a real signature match. This build isn't code-signed, so Defender may flag it on first run — Defender → **Virus & threat protection** → **Protection history** → restore + allow.
 
 ## Changes in this fork
 
